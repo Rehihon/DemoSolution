@@ -1,0 +1,117 @@
+﻿<Page x:Class="Empsolution.Views.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Empsolution.Views"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      mc:Ignorable="d" 
+      d:DesignHeight="750" d:DesignWidth="800"
+      xmlns:vm="clr-namespace:Empsolution.ViewModels" 
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:i2="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
+      Title="Employee Details"
+      Background ="LightGray">
+                    
+    <Page.DataContext>
+        <vm:EmployeeViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Frame x:Name="MainFrame"  NavigationUIVisibility="Hidden"/>
+       
+            <Grid Height="Auto" Width="950" DockPanel.Dock="Top">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="0" Margin="20" Width="250" Height="Auto" Orientation="Vertical">
+                    <TextBlock Margin="10,5,0,5" Text="Select A Department" FontSize="18" FontWeight="Bold"/>
+                    <ComboBox ItemsSource = "{Binding Departments}"
+                        DisplayMemberPath="DepName" Margin="10,20,0,20"
+                        SelectedItem = "{Binding DeparmentSelectedRecord}"
+                        Height="30" Width="200"
+                        SelectionChanged ="PerformSelection_changed" >
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Height="Auto">
+                    <ListView x:Name="peopleListView"  SelectionChanged="PeopleListView_SelectionChanged"
+                        SelectedItem="{Binding SelectedPerson}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto" >
+                    <!--<ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+
+                            <Setter Property="ContextMenu">
+                                <Setter.Value>
+                                    <ContextMenu>
+                                        <MenuItem Header="EditEmployee"
+                                             Click="EditEmployee_Click"/>
+
+                                        --><!--<MenuItem Header="EditEmployee"
+                                             Click="EditEmployee_Click"/>
+
+                                        <MenuItem Header=" Edit Contact"
+                                             Click="ViewEmployee_Click"/>
+                                        <MenuItem Header=" Edit Edit Address"
+                                                Click="ViewEmployee_Click"/>--><!--
+
+                                    </ContextMenu>
+                                </Setter.Value>
+                            </Setter>
+
+                        </Style>
+                    </ListView.ItemContainerStyle>-->
+                </ListView>
+                </StackPanel>
+                <Grid Grid.Row="2" Height="Auto">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="10" Grid.Row="0" Grid.Column="0" >
+                        <TextBlock  HorizontalAlignment="Center" Text="Address Details"  FontWeight="Bold" 
+                                    FontSize="20" Height="50"></TextBlock>
+
+                    </StackPanel>
+                    <StackPanel Margin="10" Grid.Row="0" Grid.Column="1">
+                        <TextBlock  HorizontalAlignment="Center" Text="Emagency Contact Details"  FontWeight="Bold" 
+                                    FontSize="20" Height="50"></TextBlock>
+                    </StackPanel>
+                    <WrapPanel Margin="10" Grid.Row="1" Grid.Column="0" 
+					DataContext="{Binding SelectedPerson.CurrentAddress}"
+			        Orientation="Horizontal" Width="Auto" Height="50"   >
+                        <TextBlock Margin="5" Text="{Binding  Line1}" FontSize="20" />
+                        <TextBlock Margin="5" Text="{Binding  Line2}" FontSize="20"/>
+                        <TextBlock Margin="5" Text="{Binding  County}" FontSize="20"/>
+                        <TextBlock Margin="5" Text="{Binding  Country}" FontSize="20"/>
+                        <TextBlock Margin="5" Text="{Binding  Postcode}" FontSize="20" />
+                    </WrapPanel>
+                    <StackPanel Margin="10,5,10,5" Grid.Row="1" Grid.Column="1" 
+                            DataContext="{Binding SelectedPerson}" HorizontalAlignment="Center"
+                            Orientation="Horizontal" Width="Auto"  Height="50">
+                        <TextBlock Margin="10" Text="{Binding  EmergencyContactName}" FontSize="20"/>
+                        <TextBlock Margin="10" Text="{Binding  EmergencyPhoneNumber}"  FontSize="20"/>
+
+                    </StackPanel>
+
+                </Grid>
+                <Grid Grid.Row="3" Height="70">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="0,0,0,0" Height="50">
+                        <Button Content="Add Employee" Name="CreateEmployee" Click="AddNewEmployee_Click" HorizontalAlignment="Left"  VerticalAlignment="Center"  Height="30"  Width="123" Margin="10,10,10,10"  >
+                        </Button>
+                        <Button Content="Closs App" Name="Exit" Click= "ToToMainWindow_Click" HorizontalAlignment="Left"  Height="30"  Width="123" Margin="10,5,5,5"  >
+                        </Button>
+                    </StackPanel>
+                </Grid>
+
+            </Grid>
+       
+    </Grid>
+</Page>

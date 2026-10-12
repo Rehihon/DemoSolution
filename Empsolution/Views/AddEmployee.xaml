@@ -1,0 +1,182 @@
+﻿<Page x:Class="Empsolution.Views.AddEmployee"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:local="clr-namespace:Empsolution.Views"
+  mc:Ignorable="d" 
+  xmlns:c="clr-namespace:Empsolution.Resource"
+  xmlns:vm="clr-namespace:Empsolution.ViewModels" 
+  d:DesignHeight="450" d:DesignWidth="800"
+  Title="Create New Record"
+   Background="LightGray">
+
+
+    <Page.DataContext>
+        <vm:EmployeeViewModel />
+    </Page.DataContext>
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Margin="10" Height="50">
+            <!--<Button Content="Save Records" Name="CreateEmp" Command="{Binding SubmitCommand}" HorizontalAlignment="Left"  VerticalAlignment="Center"  Height="30"  Width="123" Margin="10,10,10,10"  >
+            </Button>-->
+            <Button Content="Save Records" Name="CreateEmp" Click="SeveRecord_click"  HorizontalAlignment="Left"  VerticalAlignment="Center"  Height="30"  Width="123" Margin="10,10,10,10"  >
+            </Button>
+            <Button Content="Exit" Name="Exit" Click="Button_CloseApp" HorizontalAlignment="Left"  Height="30"  Width="123" Margin="10,5,5,5"  >
+            </Button>
+        </StackPanel>
+        <StackPanel
+            DockPanel.Dock="Top"
+            Orientation="Horizontal"
+            HorizontalAlignment="Center"
+            Margin="10,10,5,5">
+
+            <TextBlock Text="Enter New Employee  details. Select Department and Job section Options" 
+                       FontSize=" 20 " FontWeight="Bold" 
+                       TextDecorations="Underline">
+                
+            </TextBlock>
+            
+
+        </StackPanel>
+
+
+        <Grid Height="500" Width="800" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Margin="5,5,10,0" Width="400" Orientation="Vertical" >
+                <StackPanel Margin="20,0,10,0" Width="300" Height="30" Orientation="Horizontal" VerticalAlignment="Bottom" >
+                    <TextBlock Text="Select A Department" Height="30"  Width="Auto" FontSize="15" FontWeight="Bold" Margin="5,2,10,10" HorizontalAlignment="Left"/>
+                    <TextBlock Text="Select  Job Title" Height="30"  Width="Auto" FontSize="15" FontWeight="Bold" Margin="20,2,2,10" HorizontalAlignment="Right" /> 
+                </StackPanel>
+                <StackPanel Grid.Row="0" Margin="5,0,5,0" Width="450" Height="40" Orientation="Horizontal" >
+                    <ComboBox ItemsSource = "{Binding Departments}"
+                       DisplayMemberPath="DepName"
+			            SelectedItem = "{Binding DeparmentSelectedRecord}"
+                      Height="30" Width="150" Margin="50,0,2,0"
+                      Name ="DepartmentName" HorizontalAlignment="Left" VerticalContentAlignment="Center" >
+                    </ComboBox>
+                    <ComboBox ItemsSource = "{Binding Jobs}"
+                         DisplayMemberPath="Job_Title"
+                         SelectedItem = "{Binding JobSelectedRecord}"
+                         Height="30" Width="150" Margin="30,0,2,0"
+                         Name = "JobTitle" 
+                         HorizontalAlignment="Right" VerticalContentAlignment="Center"    >
+                    </ComboBox>
+
+                </StackPanel>
+            </StackPanel>    
+                
+            
+            <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding NewEmployeeRecord}"
+                  SelectedItem="{Binding SelectedNewEmployee}"
+                  SelectedCellsChanged="SelectedCellChanged_Clicked"    
+                  AutoGenerateColumns="False"                      
+                  CanUserAddRows="True" Margin="10,0,10,220" Grid.RowSpan="2"
+                  >
+                <DataGrid.Resources>
+                    <Style x:Key="GridColumnCellStyle" TargetType="TextBlock">
+                        <Setter Property="Margin" Value="5"/>
+                        <Setter Property="Width" Value="80"/>
+                    </Style>    
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Binding="{Binding FirstName, Mode=TwoWay}" ElementStyle="{StaticResource GridColumnCellStyle}" Width="150"/>
+                    <DataGridTextColumn Header="Last Name"  Binding="{Binding Surename, Mode=TwoWay}" ElementStyle="{StaticResource GridColumnCellStyle}" Width="150"/>
+                    <DataGridTextColumn Header="Stat Date"  Binding="{Binding HireDate, Mode=TwoWay}" ElementStyle="{StaticResource GridColumnCellStyle}" Width="150"/>
+                    <DataGridTextColumn Header="Data Of Birth"    Binding="{Binding DOB, Mode= TwoWay}" ElementStyle="{StaticResource GridColumnCellStyle}" Width="150"/>
+                    <DataGridTextColumn Header="Email"  Binding="{Binding Email, Mode=TwoWay}" ElementStyle="{StaticResource GridColumnCellStyle}" Width="200"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid Grid.Row="2" Height="200" Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="10,20,0,0" Grid.Row="0" Grid.Column="0" >
+                    <TextBlock  HorizontalAlignment="Center" Text=" Enter Address Details"  FontWeight="Bold" ></TextBlock>
+
+                </StackPanel>
+                <StackPanel Margin= "10,20,0,0" Grid.Row="0" Grid.Column="1">
+                    <TextBlock  HorizontalAlignment="Center" Text="Enter Contact Details"  FontWeight="Bold" ></TextBlock>
+                </StackPanel>
+                <StackPanel Margin="10" Grid.Row="1" Grid.Column="0"
+					DataContext="{Binding SelectedNewEmployee}"
+			        Orientation="Vertical" Width="350"  >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Text="Address Line" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Town And City Name" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="5" Text="County"/>
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="5" Text="Country" />
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="5" Text="PostCode" />
+
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding  Line1}" Width="150"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding  Line2}" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding  County}" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding  Country}" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding  Postcode}" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel Margin="10" Grid.Row="1" Grid.Column="1"
+				DataContext="{Binding SelectedNewEmployee}"
+                             Orientation="Vertical" Width="350"  >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Text="Mobile Phone" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="5" Text="Home PhoneNumber" />
+                        <TextBlock  Grid.Row="2" Grid.Column="0" Margin="5" Text="Relationship" />
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="5" Text="Emagency Contact Name"/>
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="5" Text="Emergency Contact Number" />
+
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding MobilPhoneNumber}" Width="150" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding HomephoneNumber}" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Description}" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding EmergencyContactName}" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding EmergencyPhoneNumber}" />
+                    </Grid>
+                </StackPanel>
+
+
+
+
+
+            </Grid>
+
+        </Grid>
+    </DockPanel>
+
+</Page>

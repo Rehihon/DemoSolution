@@ -1,0 +1,115 @@
+﻿<Page x:Class="Empsolution.Views.AddNewDepartment"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Empsolution.Views"
+      xmlns:vm="clr-namespace:Empsolution.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="450"
+      Title="Depatment">
+    <Page.DataContext>
+        <vm:EmployeeViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel 
+            Grid.Row="0" Margin="50,40,5,30">
+            <TextBlock Text="Enter Department Details"
+                          FontSize="20" FontWeight="Bold" 
+                        TextDecorations="Underline">
+                
+            </TextBlock>
+        </StackPanel>
+         
+        <Grid Name="DepartmentView" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="50"/>
+                    
+                </Grid.RowDefinitions> 
+            
+           
+                    
+                <StackPanel Grid.Row="0"   Margin="30,60,20,0" Orientation="Horizontal">
+                    <TextBlock  Text=" Search Employee " Margin="20,10,10,5" FontSize="16"/>
+                    <TextBox   Name="SearchValue"  Margin="5,10,20,0"
+                             Text="{Binding SearchValue,Mode=TwoWay}"
+                             Width="180" Height="30" HorizontalAlignment="Right" IsEnabled="True"
+                             IsReadOnly="False" FontSize="16" ToolTip="Enter Employee Search, Click the Botton and Select Employee from List " >
+
+                    </TextBox>
+                    <Button Margin="5,10,10,0" 
+                            Content=" Search record  "
+                            Click ="PersonSearch_click" FontSize="16">
+                        
+                    </Button>
+                    <ComboBox Name="PersonList" ItemsSource="{Binding PersonList}"   Margin="20,10,10,0" FontSize="16"
+                         SelectedItem="{Binding SelectedEmployee,  Mode=TwoWay}"   Width="200" Visibility="Collapsed"
+                        SelectionChanged="ComboBox_SetManagerId">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding FirstName}" />
+                                    <TextBlock Text=" " />
+                                    <TextBlock Text="{Binding Surename}" />
+                                    <TextBlock Text="  Start Date " />
+                                    <TextBlock Text="{Binding HireDate}" />
+                                </StackPanel>
+                                
+                            </DataTemplate>
+
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                </StackPanel>
+
+             <Grid  Grid.Row="1" DataContext="{Binding NewDepartment}" Name="DeptRecord">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row ="0"  Margin="50,20,0,0"  >
+                            <TextBlock  Text="  Department Name  " Height="30"
+                                            FontSize="16">
+                            </TextBlock>
+                            <TextBox 
+                                         Text="{Binding DepName, Mode=TwoWay}"
+                                         Width="350" HorizontalAlignment="Left" Height="30"
+                                         FontSize="16">
+                            </TextBox>
+                    </StackPanel>
+                <StackPanel Grid.Row="1" Margin="50,20,0,20" Orientation="Vertical" >
+                    <TextBlock Text="  Job Description " Height="30" FontSize="16">
+
+                    </TextBlock>
+
+                    <TextBox   
+                             Text="{Binding Description, Mode=TwoWay}"
+                             Width="350" HorizontalAlignment="Left" Height="30"
+                               FontSize="16" >
+                    </TextBox>
+                    
+                </StackPanel>
+              </Grid>
+                
+            </Grid>
+
+
+
+           <StackPanel  Grid.Row="2" Margin="20" Orientation="Horizontal" Height="Auto">
+            <!--<Button Name="AddRecord" Content=" Save Record " Command="{Binding SubmitDeptCommand}" Margin="20" Height="40"/>-->
+            <Button Name="AddRecord" Content=" Save Record " Click="SaveDepartmentChanges_click" Margin="20" Height="40"/>
+            <Button Name="Exit" Content="  Close  " Click="GoToExit_Click" Width="100" Margin="20" Height="40"/>
+
+        </StackPanel>
+    </Grid>
+
+</Page>

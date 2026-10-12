@@ -1,0 +1,36 @@
+﻿<Page x:Class="Empsolution.Views.DepPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Empsolution.Views"
+      xmlns:vm="clr-namespace:Empsolution.ViewModels"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Depatment">
+    <Page.DataContext>
+        <vm:EmployeeViewModel/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="0"  Margin="20" Height="Auto"
+            ItemsSource="{Binding Departments}"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns >
+                <DataGridTextColumn Header="Depatment Name" Binding="{Binding DepName}"/>
+                <DataGridTextColumn Header="Name Of Manager" Binding="{Binding NameOfManager}"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}"/>
+            </DataGrid.Columns>
+          
+        </DataGrid>
+        <StackPanel Grid.Row="1"  Margin="20" Orientation="Horizontal" Height="Auto">
+            <Button Name="AddDept" Content=" Add Department " Click="GoToProject_Click" Margin="20"/>
+            <Button Name="Exit" Content="Exit" Click="GoToExit_Click" Width="30" Margin="20"/>
+
+        </StackPanel>
+    </Grid>
+</Page>
